@@ -1,5 +1,6 @@
 package Lab02;
 import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -18,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class PhotoViewer extends JFrame{
+public class PhotoViewer extends JFrame {
 	CircularLinkedList myAlbum;  		//uses CircularLinkedList class
 	JLabel imageL;
 
@@ -35,14 +36,11 @@ public class PhotoViewer extends JFrame{
         add(imageL, BorderLayout.CENTER);
 
         JButton button1 = new JButton("next");
-        //JButton button2 = new JButton("reset");
 
         button1.addActionListener(new Button1Listener());
-       // button2.addActionListener(new Button2Listener());
 
         JPanel myPanel = new JPanel(); //***got help from chatGPT
         myPanel.add(button1);
-        //myPanel.add(button2);
         add(myPanel, BorderLayout.SOUTH);
         
         if (myAlbum.getSize() > 0) { //***necessary?
@@ -87,14 +85,24 @@ public class PhotoViewer extends JFrame{
     public static void main(String[] args) throws IOException {
     	CircularLinkedList myAlbum = new CircularLinkedList(); //##delete one CircularList declaration
         String pathToImages = args[0];
+        //System.out.println(args[0]);
         
         //source: https://www.tutorialspoint.com/how-to-get-list-of-all-files-folders-from-a-folder-in-java#:~:text=The%20ListFiles()%20method,file%2Fdirectory%20in%20a%20folder.
         File directory = new File(pathToImages);                //Creating a File object for directory
-        File content[] = directory.listFiles();					//List of all files and directories
+        File[] content = directory.listFiles(); //List of all files and directories
+        
         
         for(File f: content) {
-           myAlbum.addNode(f);
+        	System.out.println(f);
+            myAlbum.addNode(f);
         }
+        //myAlbum.printList();
+        //Node temp = myAlbum.getHead();
+        //System.out.println(temp.nameOfFile);
+//        for(int i=0;i<myAlbum.getSize();i++){
+//            System.out.println(temp.nameOfFile); 
+//            temp = temp.next; 
+//        }
     	
     	SwingUtilities.invokeLater(() -> { //***don't understand this
             PhotoViewer ui = new PhotoViewer(myAlbum);
