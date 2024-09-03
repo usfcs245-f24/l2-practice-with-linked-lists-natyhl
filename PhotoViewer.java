@@ -1,16 +1,12 @@
 package Lab02;
-import java.awt.BorderLayout;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,7 +22,7 @@ public class PhotoViewer extends JFrame {
     public PhotoViewer(CircularLinkedList album) {
     	this.myAlbum=album;
     	this.imageL = new JLabel();		//***suggestion from chatGPT
-        this.imageL.setHorizontalAlignment(JLabel.CENTER); // Centering the image
+        this.imageL.setHorizontalAlignment(JLabel.CENTER); 
     	
         setTitle("Photo Viewer");
         setSize(800, 600);
@@ -43,7 +39,7 @@ public class PhotoViewer extends JFrame {
         myPanel.add(button1);
         add(myPanel, BorderLayout.SOUTH);
         
-        if (myAlbum.getSize() > 0) { //***necessary?
+        if (myAlbum.getSize() > 0) { 
             displayNext(); // Display the first image on startup
         } else {
             imageL.setText("No images available.");
@@ -64,16 +60,16 @@ public class PhotoViewer extends JFrame {
 			BufferedImage img = ImageIO.read(new File(image.fullPath));
 		    Image scaledImage = img.getScaledInstance(700, 500,Image.SCALE_DEFAULT);  //using getScaledInstance
 		    ImageIcon imageIcon = new ImageIcon(scaledImage);
-		    imageL.setIcon(new ImageIcon(scaledImage)); // Set the scaled image as the label's icon
-		    setTitle("Photo Viewer - " + image.nameOfFile); // Updating the window title with image name
+		    imageL.setIcon(new ImageIcon(scaledImage)); 
+		    setTitle("Photo Viewer - " + image.nameOfFile); 
 		} catch (IOException e) {
-			System.err.println("Message: "+e); //new JLabel here
+			System.err.println("Message: "+e); 
 			imageL.setIcon(null);
 		}
     }
     
-    public void displayNext() {
-    	Node n = myAlbum.next();
+    public void displayNext() { 
+    	Node n = myAlbum.next(); //give me the next Node in list
     	if (n != null) {
             display(n);
         } else {
@@ -83,9 +79,8 @@ public class PhotoViewer extends JFrame {
     }
 
     public static void main(String[] args) throws IOException {
-    	CircularLinkedList myAlbum = new CircularLinkedList(); //##delete one CircularList declaration
+    	CircularLinkedList myAlbum = new CircularLinkedList(); 
         String pathToImages = args[0];
-        //System.out.println(args[0]);
         
         //source: https://www.tutorialspoint.com/how-to-get-list-of-all-files-folders-from-a-folder-in-java#:~:text=The%20ListFiles()%20method,file%2Fdirectory%20in%20a%20folder.
         File directory = new File(pathToImages);                //Creating a File object for directory
@@ -96,15 +91,8 @@ public class PhotoViewer extends JFrame {
         	System.out.println(f);
             myAlbum.addNode(f);
         }
-        //myAlbum.printList();
-        //Node temp = myAlbum.getHead();
-        //System.out.println(temp.nameOfFile);
-//        for(int i=0;i<myAlbum.getSize();i++){
-//            System.out.println(temp.nameOfFile); 
-//            temp = temp.next; 
-//        }
     	
-    	SwingUtilities.invokeLater(() -> { //***don't understand this
+    	SwingUtilities.invokeLater(() -> { 
             PhotoViewer ui = new PhotoViewer(myAlbum);
             ui.setVisible(true);
         });

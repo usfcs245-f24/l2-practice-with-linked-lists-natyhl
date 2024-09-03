@@ -47,19 +47,8 @@ public class CircularLinkedList {
     	return this.current;
     }
 
-    public void printList(){
-        Node temp = head;
-        while(temp!=null){
-            System.out.println(temp.nameOfFile); 
-            temp = temp.next; 
-        }
-    }  //don't need
-
     public int getSize(){ 
         return size;
-    }
-    public Node getHead(){ 
-        return this.head;
     }
 
 }
